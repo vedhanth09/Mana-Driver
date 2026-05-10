@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -30,7 +31,7 @@ export function CancelJobModal({
   onConfirm,
   loading,
   title = "Cancel this job?",
-  description = "Cancelling will notify the other party. This action cannot be undone.",
+  description = "This will notify the other party. This action cannot be undone.",
 }: CancelJobModalProps) {
   const [reason, setReason] = useState("");
 
@@ -48,10 +49,22 @@ export function CancelJobModal({
         onOpenChange(o);
       }}
     >
-      <DialogContent>
+      <DialogContent aria-labelledby="cancel-job-title" aria-describedby="cancel-job-desc">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-destructive"
+            >
+              <AlertTriangle className="size-5" />
+            </span>
+            <div className="flex flex-col gap-1">
+              <DialogTitle id="cancel-job-title">{title}</DialogTitle>
+              <DialogDescription id="cancel-job-desc">
+                {description}
+              </DialogDescription>
+            </div>
+          </div>
         </DialogHeader>
 
         <div className="flex flex-col gap-2">
@@ -62,8 +75,12 @@ export function CancelJobModal({
             onChange={(e) => setReason(e.target.value.slice(0, REASON_MAX_LENGTH))}
             placeholder="Let the other party know why…"
             rows={3}
+            aria-describedby="cancel-reason-counter"
           />
-          <span className="self-end text-xs text-muted-foreground">
+          <span
+            id="cancel-reason-counter"
+            className="self-end text-xs text-muted-foreground"
+          >
             {reason.length}/{REASON_MAX_LENGTH}
           </span>
         </div>
@@ -74,14 +91,14 @@ export function CancelJobModal({
             onClick={() => onOpenChange(false)}
             disabled={loading}
           >
-            Keep job
+            Go Back
           </Button>
           <Button
             variant="destructive"
             onClick={() => void handleConfirm()}
             disabled={loading}
           >
-            {loading ? "Cancelling…" : "Cancel job"}
+            {loading ? "Cancelling…" : "Confirm Cancellation"}
           </Button>
         </DialogFooter>
       </DialogContent>

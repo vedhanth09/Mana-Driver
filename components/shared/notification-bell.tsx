@@ -107,28 +107,36 @@ export function NotificationBell({ className }: { className?: string }) {
               />
             </div>
           ) : (
-            <ul className="divide-y divide-border">
+            <ul className="divide-y divide-border" role="list">
               {notifications.map((n) => (
                 <li
                   key={n._id}
                   className={cn(
                     "flex items-start gap-3 px-4 py-3 transition-colors",
-                    !n.isRead && "bg-secondary/5"
+                    !n.isRead && "bg-secondary/10"
                   )}
+                  aria-current={!n.isRead ? "true" : undefined}
                 >
                   <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-muted">
                     <NotificationIcon type={n.type} />
                   </div>
                   <div className="flex flex-1 flex-col gap-0.5">
-                    <p className="text-sm leading-snug text-foreground">{n.message}</p>
+                    <p
+                      className={cn(
+                        "text-sm leading-snug text-foreground",
+                        !n.isRead && "font-medium"
+                      )}
+                    >
+                      {n.message}
+                    </p>
                     <span className="text-xs text-muted-foreground">
                       {formatRelative(n.createdAt)}
                     </span>
                   </div>
                   {!n.isRead && (
                     <span
-                      aria-label="unread"
-                      className="mt-2 size-2 shrink-0 rounded-full bg-secondary"
+                      aria-label="Unread"
+                      className="mt-2 size-2 shrink-0 rounded-full bg-secondary ring-2 ring-secondary/20"
                     />
                   )}
                 </li>
