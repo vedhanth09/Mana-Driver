@@ -2,43 +2,142 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/*
+ * ManaDriver Design System
+ * Source: _ai_context/DesignSystem.md (Stitch project 6981698201899644565)
+ *
+ * Tailwind v4 uses CSS-first config — tokens declared in @theme below replace
+ * the role of tailwind.config.ts theme.extend.colors / fontFamily / fontSize.
+ *
+ * TODO: Dark-mode tokens deferred. Phase 1 ships light mode only.
+ *       The .dark{} block below remains the ShadCN default and will be
+ *       remapped to brand-aware dark tokens in a later phase.
+ */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* ─── Fonts ─────────────────────────────────────────────────────── */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* ─── Typography scale (per Stitch designMd) ────────────────────── */
+  --text-h1: 32px;
+  --text-h1--line-height: 1.2;
+  --text-h1--font-weight: 700;
+  --text-h1-mobile: 26px;
+  --text-h1-mobile--line-height: 1.2;
+  --text-h1-mobile--font-weight: 700;
+  --text-h2: 24px;
+  --text-h2--line-height: 1.3;
+  --text-h2--font-weight: 600;
+  --text-h3: 20px;
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.5;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.5;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.4;
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 1;
+  --text-label-caps--font-weight: 600;
+  --text-label-caps--letter-spacing: 0.05em;
+  --text-button: 16px;
+  --text-button--line-height: 1;
+  --text-button--font-weight: 600;
+
+  /* ─── ShadCN core tokens (re-mapped to brand) ───────────────────── */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ─── Surface family (Material-style tokens) ────────────────────── */
+  --color-surface: #ffffff;
+  --color-surface-dim: #dadadb;
+  --color-surface-bright: #f9f9fa;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f3f5;
+  --color-surface-container: #eeeeef;
+  --color-surface-container-high: #e8e8e9;
+  --color-surface-container-highest: #e2e2e4;
+  --color-on-surface: #1a1c1d;
+  --color-on-surface-variant: #41484c;
+  --color-inverse-surface: #2f3132;
+  --color-inverse-on-surface: #f1f0f2;
+  --color-outline: #72787c;
+  --color-outline-variant: #c1c7cc;
+  --color-surface-tint: #3f6376;
+  --color-surface-variant: #e2e2e4;
+
+  /* ─── Primary family ────────────────────────────────────────────── */
+  --color-brand-primary: #001d29;
+  --color-on-brand-primary: #ffffff;
+  --color-primary-container: #083344;
+  --color-on-primary-container: #779cb0;
+  --color-inverse-primary: #a7cce1;
+
+  /* ─── Secondary family ──────────────────────────────────────────── */
+  --color-brand-secondary: #006c49;
+  --color-on-brand-secondary: #ffffff;
+  --color-secondary-container: #6cf8bb;
+  --color-on-secondary-container: #00714d;
+
+  /* ─── Tertiary family ───────────────────────────────────────────── */
+  --color-tertiary: #2b1600;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #452907;
+  --color-on-tertiary-container: #b98f64;
+
+  /* ─── Error family ──────────────────────────────────────────────── */
+  --color-error: #ef4444;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* ─── Brand semantic tokens ─────────────────────────────────────── */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-brand-border: #e2e8f0;
+  --color-accent-emerald: #10b981;
+
+  /* ─── Status colors (job-type + application-state badges) ───────── */
+  --color-status-hourly: #3b82f6;
+  --color-status-temporary: #f59e0b;
+  --color-status-permanent: #a855f7;
+  --color-status-pending: #94a3b8;
+
+  /* ─── Radius scale ──────────────────────────────────────────────── */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -46,43 +145,69 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ─── Spacing tokens (per design MD) ────────────────────────────── */
+  --spacing-gutter: 1rem;
+  --spacing-section-gap: 2.5rem;
+  --spacing-container-mobile: 1rem;
+  --spacing-container-desktop: 2rem;
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* ─── ShadCN tokens, mapped to ManaDriver brand colors ──────────── */
+  --background: #f0faf8;
+  --foreground: #0f172a;
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  /* Primary: deep dark teal — main brand button color */
+  --primary: #083344;
+  --primary-foreground: #ffffff;
+
+  /* Secondary: emerald green — accent color */
+  --secondary: #10b981;
+  --secondary-foreground: #ffffff;
+
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  --accent: #f0faf8;
+  --accent-foreground: #083344;
+
+  --destructive: #ef4444;
+
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #083344;
+
+  /* Chart palette — uses brand status colors first, then fallbacks */
+  --chart-1: #3b82f6;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #a855f7;
+  --chart-5: #ef4444;
+
+  --radius: 0.5rem;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #083344;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0faf8;
+  --sidebar-accent-foreground: #083344;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #083344;
 }
 
+/*
+ * TODO(phase-N): Dark-mode tokens. The block below is the ShadCN default and
+ * has not been remapped to ManaDriver brand colors yet. Phase 1 ships light
+ * mode only — revisit when dark mode becomes a requirement.
+ */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -122,9 +247,18 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
   html {
     @apply font-sans;
+  }
+  h1 {
+    @apply text-h1 font-bold;
+  }
+  h2 {
+    @apply text-h2 font-semibold;
+  }
+  h3 {
+    @apply text-h3 font-semibold;
   }
 }
