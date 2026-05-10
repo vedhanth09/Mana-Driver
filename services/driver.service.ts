@@ -46,6 +46,11 @@ export async function createProfile(
     languages: input.languages,
   });
 
+  await UserModel.updateOne(
+    { _id: uid, isProfileComplete: false },
+    { $set: { isProfileComplete: true } }
+  ).exec();
+
   return created.toObject() as unknown as DriverProfile;
 }
 

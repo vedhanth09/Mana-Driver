@@ -52,13 +52,6 @@ export function StepSkills({
 }: Props) {
   return (
     <div className="flex flex-col gap-7">
-      <header className="flex flex-col gap-1">
-        <h2 className="text-h3 font-semibold text-foreground">Skills & languages</h2>
-        <p className="text-sm text-muted-foreground">
-          Pick everything you can drive and speak. The more you select, the more jobs you&apos;ll match.
-        </p>
-      </header>
-
       <ChipGroup
         label="Transmission types"
         options={TRANSMISSION_TYPES.map((t) => ({ value: t, label: transmissionLabels[t] }))}

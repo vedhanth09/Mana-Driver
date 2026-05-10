@@ -30,13 +30,6 @@ export function StepLocation({ city, areas, onCityChange, onAreasChange }: Props
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1">
-        <h2 className="text-h3 font-semibold text-foreground">Where do you drive?</h2>
-        <p className="text-sm text-muted-foreground">
-          Pick your city, then the areas you can serve.
-        </p>
-      </header>
-
       <div className="flex flex-col gap-2">
         <Label htmlFor="city">City</Label>
         <div className="relative">

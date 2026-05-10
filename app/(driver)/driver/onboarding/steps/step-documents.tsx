@@ -42,13 +42,11 @@ export function StepDocuments({ files, onChange }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1">
-        <h2 className="text-h3 font-semibold text-foreground">Upload your documents</h2>
-        <p className="text-sm text-muted-foreground">
-          We need all three to verify your account. Max{" "}
-          {MAX_DOCUMENT_SIZE_BYTES / (1024 * 1024)} MB each. JPG, PNG, WEBP, or PDF.
-        </p>
-      </header>
+      <p className="text-xs text-muted-foreground">
+        Optional for now — you can add these later from your profile to get
+        verified. Max {MAX_DOCUMENT_SIZE_BYTES / (1024 * 1024)} MB each. JPG,
+        PNG, WEBP, or PDF.
+      </p>
 
       <div className="flex flex-col gap-4">
         {DOCUMENT_TYPES.map((docType) => (
@@ -121,7 +119,7 @@ function DocumentDropzone({
     <div className="flex flex-col gap-2">
       <Label className="text-sm font-medium">
         {meta.title}
-        <span className="ml-1 text-destructive">*</span>
+        <span className="ml-1 font-normal text-muted-foreground">(optional)</span>
       </Label>
       <div
         {...getRootProps()}

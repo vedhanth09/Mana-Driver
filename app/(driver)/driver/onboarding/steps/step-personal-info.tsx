@@ -19,13 +19,6 @@ type Props = {
 export function StepPersonalInfo({ value, onChange }: Props) {
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1">
-        <h2 className="text-h3 font-semibold text-foreground">Personal information</h2>
-        <p className="text-sm text-muted-foreground">
-          We need a bit about you so customers know who&apos;s behind the wheel.
-        </p>
-      </header>
-
       <div className="grid grid-cols-1 gap-5">
         <div className="flex flex-col gap-2">
           <Label htmlFor="age">Age</Label>
