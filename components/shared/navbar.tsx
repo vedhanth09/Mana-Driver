@@ -55,6 +55,12 @@ function homeForRole(role: UserRole): string {
   return "/";
 }
 
+function profileForRole(role: UserRole): string | null {
+  if (role === "driver") return "/driver/profile";
+  if (role === "customer") return "/customer/profile";
+  return null;
+}
+
 type Props = {
   /**
    * Pre-resolved user from a server context. When omitted, the navbar will
@@ -167,6 +173,16 @@ export function Navbar({ initialUser = null }: Props) {
                   >
                     Dashboard
                   </DropdownMenuItem>
+                  {profileForRole(user.role) && (
+                    <DropdownMenuItem
+                      onClick={() =>
+                        router.push(profileForRole(user.role) as string)
+                      }
+                    >
+                      <User className="size-4" aria-hidden="true" />
+                      Profile
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     disabled={loggingOut}
@@ -237,6 +253,17 @@ export function Navbar({ initialUser = null }: Props) {
                     >
                       Dashboard
                     </Button>
+                    {profileForRole(user.role) && (
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        render={
+                          <Link href={profileForRole(user.role) as string} />
+                        }
+                      >
+                        Profile
+                      </Button>
+                    )}
                     <Button
                       variant="ghost"
                       size="lg"

@@ -16,7 +16,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ApiError } from "@/components/shared/api-error";
-import { apiGet, apiPost, apiUpload, ApiClientError } from "@/lib/api";
+import { apiGet, apiPatch, apiPost, apiUpload, ApiClientError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { CITIES, CITY_AREAS, type City } from "@/lib/constants/cities";
 import {
@@ -124,7 +124,13 @@ type ExistingProfile = {
   >;
 };
 
-export function OnboardingWizard({ fullName }: { fullName: string }) {
+export function OnboardingWizard({
+  fullName,
+  editMode = false,
+}: {
+  fullName: string;
+  editMode?: boolean;
+}) {
   const router = useRouter();
   const [step, setStep] = useState<number>(1);
   const [state, setState] = useState<WizardState>(INITIAL_STATE);
@@ -156,7 +162,9 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
             languages: p.languages ?? [],
           }));
           setProfileSaved(true);
-          setStep(4);
+          // In edit mode, start at step 1 so the user can change anything.
+          // Otherwise (resuming onboarding), jump to documents.
+          if (!editMode) setStep(4);
         }
       } catch {
         // Ignore — first-time onboarding has no profile yet.
@@ -167,7 +175,7 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [editMode]);
 
   const update = <K extends keyof WizardState>(key: K, value: WizardState[K]) => {
     setState((prev) => ({ ...prev, [key]: value }));
@@ -197,13 +205,29 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
 
     setSubmitting(true);
     try {
-      await apiPost("/api/driver/profile", parsed.data);
+      if (profileSaved) {
+        await apiPatch("/api/driver/profile", parsed.data);
+      } else {
+        await apiPost("/api/driver/profile", parsed.data);
+      }
       setProfileSaved(true);
       return true;
     } catch (e) {
       if (e instanceof ApiClientError && e.code === "CONFLICT") {
-        setProfileSaved(true);
-        return true;
+        // Profile already exists — fall back to PATCH so the user's edits
+        // aren't silently dropped.
+        try {
+          await apiPatch("/api/driver/profile", parsed.data);
+          setProfileSaved(true);
+          return true;
+        } catch (patchErr) {
+          setServerError(
+            patchErr instanceof ApiClientError
+              ? patchErr.message
+              : "Couldn't update profile",
+          );
+          return false;
+        }
       }
       setServerError(
         e instanceof ApiClientError ? e.message : "Couldn't save profile",
@@ -243,10 +267,10 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
     }
     setServerError(null);
     if (step === 3) {
-      if (!profileSaved) {
-        const ok = await persistProfile();
-        if (!ok) return;
-      }
+      // Always persist on the personal/location/skills boundary so edits in
+      // any of those steps are saved (PATCH if existing, POST otherwise).
+      const ok = await persistProfile();
+      if (!ok) return;
       setStep(4);
       return;
     }
@@ -255,11 +279,13 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
       if (!ok) return;
       const uploadedCount = Object.keys(state.files).length;
       toast.success(
-        uploadedCount === 0
-          ? "You're in. Add your documents anytime to get verified."
-          : "You're all set. Welcome aboard.",
+        editMode
+          ? "Profile updated."
+          : uploadedCount === 0
+            ? "You're in. Add your documents anytime to get verified."
+            : "You're all set. Welcome aboard.",
       );
-      router.push("/driver");
+      router.push(editMode ? "/driver/profile" : "/driver");
       router.refresh();
       return;
     }
@@ -283,11 +309,11 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
   const uploadedCount = Object.keys(state.files).length;
 
   return (
-    <main className="grid min-h-screen grid-cols-1 bg-background lg:grid-cols-[1.05fr_1fr]">
+    <main className="grid min-h-screen grid-cols-1 bg-background lg:h-screen lg:min-h-0 lg:grid-cols-[1.05fr_1fr] lg:overflow-hidden">
       {/* Left — wizard panel */}
-      <section className="flex flex-col">
+      <section className="flex flex-col lg:min-h-0">
         {/* Top bar: brand + progress */}
-        <header className="flex items-center gap-4 border-b border-border bg-card/60 px-6 py-4 sm:px-10">
+        <header className="flex items-center gap-4 border-b border-border bg-card/60 px-6 py-3 sm:px-10">
           <Link
             href="/"
             className="text-lg font-bold tracking-tight text-foreground"
@@ -313,9 +339,9 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
         </header>
 
         {/* Body */}
-        <div className="flex flex-1 items-start justify-center px-6 py-10 sm:px-10 lg:items-center lg:px-16 lg:py-12">
+        <div className="flex flex-1 items-start justify-center px-6 py-8 sm:px-10 lg:min-h-0 lg:items-center lg:overflow-y-auto lg:px-16 lg:py-8">
           <div className="w-full max-w-xl">
-            <div className="mb-6">
+            <div className="mb-5">
               <p className="text-label-caps tracking-wider text-muted-foreground uppercase">
                 Welcome, {fullName.split(" ")[0]}
               </p>
@@ -327,7 +353,7 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
               </p>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               {step === 1 && (
                 <StepPersonalInfo
                   value={{ age: state.age, address: state.address }}
@@ -362,7 +388,7 @@ export function OnboardingWizard({ fullName }: { fullName: string }) {
 
               {serverError && <ApiError error={serverError} compact />}
 
-              <div className="mt-2 flex items-center justify-between gap-2 border-t border-border pt-5">
+              <div className="mt-1 flex items-center justify-between gap-2 border-t border-border pt-4">
                 <button
                   type="button"
                   onClick={goBack}

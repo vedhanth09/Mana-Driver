@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ApiError } from "@/components/shared/api-error";
+import { GoogleSignInButton } from "@/components/shared/google-sign-in-button";
 import { apiPost, ApiClientError } from "@/lib/api";
 import { loginSchema, type LoginInput } from "@/schemas/auth.schema";
 import type { UserRole } from "@/lib/constants/enums";
@@ -43,6 +44,7 @@ function LoginPageInner() {
   const search = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [googleBusy, setGoogleBusy] = useState(false);
 
   const {
     register,
@@ -70,6 +72,34 @@ function LoginPageInner() {
       } else {
         setServerError("Something went wrong. Please try again.");
       }
+    }
+  }
+
+  async function onGoogleCredential(credential: string) {
+    setServerError(null);
+    setGoogleBusy(true);
+    try {
+      const data = await apiPost<{ user: AuthedUser; isNewUser: boolean }>(
+        "/api/auth/google",
+        { credential },
+      );
+      const firstName = data.user.fullName.split(" ")[0];
+      toast.success(
+        data.isNewUser
+          ? `Welcome, ${firstName}. Your account is ready.`
+          : `Welcome back, ${firstName}.`,
+      );
+      const next = search.get("next");
+      router.push(next ?? homeForRole(data.user.role));
+      router.refresh();
+    } catch (e) {
+      if (e instanceof ApiClientError) {
+        setServerError(e.message);
+      } else {
+        setServerError("Could not sign in with Google. Please try again.");
+      }
+    } finally {
+      setGoogleBusy(false);
     }
   }
 
@@ -163,13 +193,12 @@ function LoginPageInner() {
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <span
-                    aria-disabled="true"
-                    title="Coming soon"
-                    className="cursor-not-allowed text-xs font-medium text-muted-foreground/70 select-none"
+                  <Link
+                    href="/forgot-password"
+                    className="text-xs font-medium text-foreground underline-offset-4 hover:underline"
                   >
                     Forgot password?
-                  </span>
+                  </Link>
                 </div>
                 <div className="relative">
                   <Lock
@@ -221,12 +250,24 @@ function LoginPageInner() {
               <Button
                 type="submit"
                 size="lg"
-                disabled={isSubmitting}
+                disabled={isSubmitting || googleBusy}
                 className="h-11 w-full bg-primary text-base text-primary-foreground hover:bg-primary/90"
               >
                 {isSubmitting ? "Signing in…" : "Sign In"}
               </Button>
             </form>
+
+            <div className="my-6 flex items-center gap-3" role="separator" aria-label="or">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-xs font-medium text-muted-foreground">OR</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+
+            <GoogleSignInButton
+              text="continue_with"
+              disabled={isSubmitting || googleBusy}
+              onCredential={onGoogleCredential}
+            />
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}

@@ -41,14 +41,14 @@ export function StepDocuments({ files, onChange }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <p className="text-xs text-muted-foreground">
         Optional for now — you can add these later from your profile to get
         verified. Max {MAX_DOCUMENT_SIZE_BYTES / (1024 * 1024)} MB each. JPG,
         PNG, WEBP, or PDF.
       </p>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {DOCUMENT_TYPES.map((docType) => (
           <DocumentDropzone
             key={docType}
@@ -124,7 +124,7 @@ function DocumentDropzone({
       <div
         {...getRootProps()}
         className={cn(
-          "relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-5 text-center transition-colors",
+          "relative flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed p-3.5 text-center transition-colors",
           isDragActive
             ? "border-primary bg-primary/5"
             : file

@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ApiError } from "@/components/shared/api-error";
+import { GoogleSignInButton } from "@/components/shared/google-sign-in-button";
 import { apiPost, ApiClientError } from "@/lib/api";
 import { signupSchema, type SignupInput } from "@/schemas/auth.schema";
 import type { UserRole } from "@/lib/constants/enums";
@@ -69,6 +70,7 @@ export default function SignupPage() {
   const [agreed, setAgreed] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [panelVisible, setPanelVisible] = useState(true);
+  const [googleBusy, setGoogleBusy] = useState(false);
 
   const {
     register,
@@ -118,6 +120,36 @@ export default function SignupPage() {
       } else {
         setServerError("Something went wrong. Please try again.");
       }
+    }
+  }
+
+  async function onGoogleCredential(credential: string) {
+    setServerError(null);
+    if (!agreed) {
+      setServerError("Please agree to the Terms of Service and Privacy Policy.");
+      return;
+    }
+    setGoogleBusy(true);
+    try {
+      const data = await apiPost<{ user: AuthedUser; isNewUser: boolean }>(
+        "/api/auth/google",
+        { credential, role: selectedRole },
+      );
+      toast.success(
+        data.isNewUser
+          ? "Account created. Let's get you set up."
+          : `Welcome back, ${data.user.fullName.split(" ")[0]}.`,
+      );
+      router.push(homeForRole(data.user.role));
+      router.refresh();
+    } catch (e) {
+      if (e instanceof ApiClientError) {
+        setServerError(e.message);
+      } else {
+        setServerError("Could not sign in with Google. Please try again.");
+      }
+    } finally {
+      setGoogleBusy(false);
     }
   }
 
@@ -389,12 +421,24 @@ export default function SignupPage() {
               <Button
                 type="submit"
                 size="lg"
-                disabled={isSubmitting}
+                disabled={isSubmitting || googleBusy}
                 className="h-11 w-full bg-primary text-base text-primary-foreground hover:bg-primary/90"
               >
                 {isSubmitting ? "Creating account…" : "Create Account"}
               </Button>
             </form>
+
+            <div className="my-6 flex items-center gap-3" role="separator" aria-label="or">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-xs font-medium text-muted-foreground">OR</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+
+            <GoogleSignInButton
+              text="continue_with"
+              disabled={isSubmitting || googleBusy}
+              onCredential={onGoogleCredential}
+            />
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
               Already have an account?{" "}

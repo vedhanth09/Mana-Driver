@@ -53,3 +53,41 @@ export function verifyRefresh(token: string): RefreshTokenPayload {
   }
   return { id: decoded.id };
 }
+
+const PASSWORD_RESET_TOKEN_MAX_AGE = 10 * 60; // 10 minutes
+const PASSWORD_RESET_PURPOSE = "password_reset";
+
+export interface PasswordResetTokenPayload {
+  otpId: string;
+  email: string;
+  purpose: typeof PASSWORD_RESET_PURPOSE;
+}
+
+export function signPasswordResetToken(
+  payload: Omit<PasswordResetTokenPayload, "purpose">,
+): string {
+  const opts: SignOptions = { expiresIn: PASSWORD_RESET_TOKEN_MAX_AGE };
+  return jwt.sign(
+    { ...payload, purpose: PASSWORD_RESET_PURPOSE },
+    getSecret("JWT_SECRET"),
+    opts,
+  );
+}
+
+export function verifyPasswordResetToken(token: string): PasswordResetTokenPayload {
+  const decoded = jwt.verify(token, getSecret("JWT_SECRET")) as JwtPayload &
+    Partial<PasswordResetTokenPayload>;
+  if (
+    typeof decoded !== "object" ||
+    typeof decoded.otpId !== "string" ||
+    typeof decoded.email !== "string" ||
+    decoded.purpose !== PASSWORD_RESET_PURPOSE
+  ) {
+    throw new jwt.JsonWebTokenError("Malformed reset token payload");
+  }
+  return {
+    otpId: decoded.otpId,
+    email: decoded.email,
+    purpose: PASSWORD_RESET_PURPOSE,
+  };
+}

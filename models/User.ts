@@ -1,13 +1,19 @@
 import { Schema, model, models, type Model, type Types, type HydratedDocument } from "mongoose";
 import { USER_ROLES, type UserRole } from "@/lib/constants/enums";
 
+export const AUTH_PROVIDERS = ["local", "google"] as const;
+export type AuthProvider = (typeof AUTH_PROVIDERS)[number];
+
 export interface UserAttrs {
   fullName: string;
   email: string;
-  phone: string;
-  passwordHash: string;
+  phone?: string;
+  passwordHash?: string;
   role: UserRole;
   isProfileComplete: boolean;
+  authProvider: AuthProvider;
+  googleId?: string;
+  avatarUrl?: string;
 }
 
 export interface User extends UserAttrs {
@@ -29,10 +35,18 @@ const userSchema = new Schema<User>(
       trim: true,
       index: true,
     },
-    phone: { type: String, required: true, unique: true, trim: true },
-    passwordHash: { type: String, required: true },
+    phone: { type: String, required: false, unique: true, sparse: true, trim: true },
+    passwordHash: { type: String, required: false },
     role: { type: String, required: true, enum: USER_ROLES },
     isProfileComplete: { type: Boolean, required: true, default: false },
+    authProvider: {
+      type: String,
+      required: true,
+      enum: AUTH_PROVIDERS,
+      default: "local",
+    },
+    googleId: { type: String, required: false, unique: true, sparse: true, index: true },
+    avatarUrl: { type: String, required: false, trim: true },
   },
   { timestamps: true }
 );
