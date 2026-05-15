@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ApiError } from "@/components/shared/api-error";
+import { Logo } from "@/components/shared/logo";
 import { apiGet, apiPatch, apiPost, apiUpload, ApiClientError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { CITIES, CITY_AREAS, type City } from "@/lib/constants/cities";
@@ -318,7 +319,7 @@ export function OnboardingWizard({
             href="/"
             className="text-lg font-bold tracking-tight text-foreground"
           >
-            ManaDriver
+            <Logo withWordmark className="size-10" />
           </Link>
           <div className="flex flex-1 items-center gap-3">
             <div className="flex flex-1 items-center gap-3">

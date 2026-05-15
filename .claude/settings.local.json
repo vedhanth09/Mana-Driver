@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f tmp_india_path.txt tmp_bbox.cjs tmp_bbox2.cjs tmp_check.cjs)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

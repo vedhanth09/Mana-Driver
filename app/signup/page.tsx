@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ApiError } from "@/components/shared/api-error";
 import { GoogleSignInButton } from "@/components/shared/google-sign-in-button";
+import { Logo } from "@/components/shared/logo";
 import { apiPost, ApiClientError } from "@/lib/api";
 import { signupSchema, type SignupInput } from "@/schemas/auth.schema";
 import type { UserRole } from "@/lib/constants/enums";
@@ -154,7 +155,7 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="grid min-h-screen grid-cols-1 bg-background lg:grid-cols-[1fr_1.1fr]">
+    <main className="grid h-screen grid-cols-1 overflow-hidden bg-background lg:grid-cols-[1fr_1.1fr]">
       {/* Left — brand panel */}
       <aside className="relative hidden overflow-hidden bg-primary text-primary-foreground lg:flex lg:flex-col lg:justify-between lg:p-12">
         <Image
@@ -182,7 +183,7 @@ export default function SignupPage() {
 
         <div className="relative z-10">
           <Link href="/" className="text-2xl font-bold tracking-tight">
-            ManaDriver
+            <Logo withWordmark className="size-16" />
           </Link>
           <p
             className={cn(
@@ -213,18 +214,18 @@ export default function SignupPage() {
       </aside>
 
       {/* Right — form panel */}
-      <section className="flex items-center justify-center px-4 py-10 sm:px-8 lg:px-16">
+      <section className="flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-8 lg:px-16">
         <div className="w-full max-w-xl">
           <Link
             href="/"
-            className="mb-8 block text-center text-2xl font-bold tracking-tight text-foreground lg:hidden"
+            className="mb-6 flex justify-center text-2xl font-bold tracking-tight text-foreground lg:hidden"
           >
-            ManaDriver
+            <Logo withWordmark className="size-16" />
           </Link>
 
-          <div className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border sm:p-8">
-            <div className="mb-6">
-              <h1 className="text-h1-mobile font-bold text-foreground sm:text-h1">
+          <div className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border">
+            <div className="mb-4">
+              <h1 className="text-h1-mobile font-bold text-foreground">
                 Create an account
               </h1>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -235,7 +236,7 @@ export default function SignupPage() {
             <form
               noValidate
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-5"
+              className="flex flex-col gap-3"
             >
               {/* Role selector */}
               <fieldset className="grid grid-cols-2 gap-3">
@@ -246,7 +247,7 @@ export default function SignupPage() {
                     <label
                       key={value}
                       className={cn(
-                        "relative flex h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 bg-background transition-all",
+                        "relative flex h-16 cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 bg-background transition-all",
                         checked
                           ? "border-primary bg-accent shadow-sm"
                           : "border-border hover:border-primary/40",
@@ -268,7 +269,7 @@ export default function SignupPage() {
                       )}
                       <Icon
                         className={cn(
-                          "size-7",
+                          "size-6",
                           checked ? "text-primary" : "text-muted-foreground",
                         )}
                         aria-hidden="true"
@@ -290,8 +291,8 @@ export default function SignupPage() {
               )}
 
               {/* Name row */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="flex flex-col gap-1.5">
                   <Label htmlFor="fullName">Full Name</Label>
                   <input
                     id="fullName"
@@ -308,10 +309,10 @@ export default function SignupPage() {
                     </p>
                   )}
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1.5">
                   <Label htmlFor="phone">Phone Number</Label>
                   <div className="flex">
-                    <span className="flex h-11 items-center rounded-l-lg border border-r-0 border-border bg-muted px-3 text-sm font-medium text-muted-foreground">
+                    <span className="flex h-10 items-center rounded-l-lg border border-r-0 border-border bg-muted px-3 text-sm font-medium text-muted-foreground">
                       +91
                     </span>
                     <input
@@ -333,7 +334,7 @@ export default function SignupPage() {
               </div>
 
               {/* Email */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1.5">
                 <Label htmlFor="email">Email Address</Label>
                 <input
                   id="email"
@@ -352,7 +353,7 @@ export default function SignupPage() {
               </div>
 
               {/* Password */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1.5">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <input
@@ -422,13 +423,13 @@ export default function SignupPage() {
                 type="submit"
                 size="lg"
                 disabled={isSubmitting || googleBusy}
-                className="h-11 w-full bg-primary text-base text-primary-foreground hover:bg-primary/90"
+                className="h-10 w-full bg-primary text-sm text-primary-foreground hover:bg-primary/90"
               >
                 {isSubmitting ? "Creating account…" : "Create Account"}
               </Button>
             </form>
 
-            <div className="my-6 flex items-center gap-3" role="separator" aria-label="or">
+            <div className="my-3 flex items-center gap-3" role="separator" aria-label="or">
               <span className="h-px flex-1 bg-border" />
               <span className="text-xs font-medium text-muted-foreground">OR</span>
               <span className="h-px flex-1 bg-border" />
@@ -440,7 +441,7 @@ export default function SignupPage() {
               onCredential={onGoogleCredential}
             />
 
-            <p className="mt-6 text-center text-sm text-muted-foreground">
+            <p className="mt-3 text-center text-sm text-muted-foreground">
               Already have an account?{" "}
               <Link
                 href="/login"
@@ -457,7 +458,7 @@ export default function SignupPage() {
 }
 
 const plainInputClass = cn(
-  "h-11 w-full rounded-lg border border-border bg-background px-3 text-base text-foreground placeholder:text-muted-foreground",
+  "h-10 w-full rounded-lg border border-border bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground",
   "outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20",
   "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
 );

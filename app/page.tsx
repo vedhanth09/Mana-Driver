@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
-import { CITIES } from "@/lib/constants/cities";
+import { ServiceAreas } from "@/components/shared/service-areas";
 
 export default function HomePage() {
   return (
@@ -401,99 +401,6 @@ function TailoredJourneys() {
             </div>
           </div>
         ))}
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Service areas (cities)                                            */
-/* ------------------------------------------------------------------ */
-const FEATURED_CITIES = [
-  "Mumbai",
-  "Bangalore",
-  "Delhi",
-  "Hyderabad",
-  "Chennai",
-  "Pune",
-] as const;
-
-function ServiceAreas() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 pb-16 md:px-8 md:pb-20">
-      <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Content */}
-          <div className="flex flex-col justify-center gap-8 p-8 md:p-12">
-            <div className="flex flex-col gap-3">
-              <h2 className="text-3xl leading-tight font-bold text-primary md:text-4xl">
-                Currently Serving Across India
-              </h2>
-              <p className="text-base text-muted-foreground md:text-lg">
-                We are rapidly expanding our network of professional drivers to
-                serve you in every major tech hub and metropolitan area. Select
-                your city to get started.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {FEATURED_CITIES.map((city, i) => {
-                const selected = i === 1;
-                return (
-                  <span
-                    key={city}
-                    className={`inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold shadow-sm transition-colors ${
-                      selected
-                        ? "bg-secondary text-secondary-foreground"
-                        : "border border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-primary"
-                    }`}
-                  >
-                    {city}
-                  </span>
-                );
-              })}
-            </div>
-            <p className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
-              + {CITIES.length - FEATURED_CITIES.length} more cities
-            </p>
-          </div>
-          {/* Map */}
-          <div className="relative min-h-[280px] bg-muted/40 lg:min-h-0">
-            <div
-              className="absolute inset-0 opacity-[0.18]"
-              aria-hidden="true"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, var(--color-primary) 1px, transparent 1px)",
-                backgroundSize: "16px 16px",
-              }}
-            />
-            <div className="relative flex h-full items-center justify-center p-8">
-              <div className="grid grid-cols-3 gap-x-8 gap-y-6">
-                {FEATURED_CITIES.map((city, i) => (
-                  <div
-                    key={city}
-                    className="flex flex-col items-center gap-1.5 text-center"
-                  >
-                    <span
-                      className={`flex size-3 items-center justify-center rounded-full ${
-                        i === 1 ? "bg-secondary" : "bg-primary/40"
-                      }`}
-                    >
-                      <span
-                        className={`size-3 animate-ping rounded-full ${
-                          i === 1 ? "bg-secondary" : "bg-primary/30"
-                        }`}
-                      />
-                    </span>
-                    <span className="text-xs font-semibold text-primary">
-                      {city}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

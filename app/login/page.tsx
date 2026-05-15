@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ApiError } from "@/components/shared/api-error";
 import { GoogleSignInButton } from "@/components/shared/google-sign-in-button";
+import { Logo } from "@/components/shared/logo";
 import { apiPost, ApiClientError } from "@/lib/api";
 import { loginSchema, type LoginInput } from "@/schemas/auth.schema";
 import type { UserRole } from "@/lib/constants/enums";
@@ -124,7 +125,7 @@ function LoginPageInner() {
           href="/"
           className="relative z-10 text-2xl font-bold tracking-tight"
         >
-          ManaDriver
+          <Logo withWordmark className="size-16" />
         </Link>
 
         <div className="relative z-10 max-w-md">
@@ -144,9 +145,9 @@ function LoginPageInner() {
           {/* Mobile brand */}
           <Link
             href="/"
-            className="mb-8 block text-center text-2xl font-bold tracking-tight text-foreground lg:hidden"
+            className="mb-8 flex justify-center text-2xl font-bold tracking-tight text-foreground lg:hidden"
           >
-            ManaDriver
+            <Logo withWordmark className="size-16" />
           </Link>
 
           <div className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border sm:p-8">

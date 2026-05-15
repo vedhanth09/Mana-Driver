@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Car } from "lucide-react";
-import { CITIES } from "@/lib/constants/cities";
+import { Logo } from "@/components/shared/logo";
 
 /* Brand-glyph icons (lucide-react no longer ships brand marks) */
 function TwitterGlyph(props: React.SVGProps<SVGSVGElement>) {
@@ -108,8 +107,7 @@ export function Footer() {
               href="/"
               className="flex items-center gap-2 text-h2 font-bold"
             >
-              <Car className="size-7" aria-hidden="true" />
-              <span>ManaDriver</span>
+              <Logo withWordmark />
             </Link>
             <p className="mt-3 max-w-xs text-sm text-primary-foreground/70">
               Your car. A professional driver. On demand. Hourly, temporary, or
@@ -148,26 +146,6 @@ export function Footer() {
               </ul>
             </div>
           ))}
-
-          <div>
-            <h4 className="mb-5 text-sm font-bold tracking-wide uppercase">
-              Cities
-            </h4>
-            <ul className="grid grid-cols-1 gap-2">
-              {CITIES.slice(0, 6).map((city) => (
-                <li key={city}>
-                  <span className="text-sm text-primary-foreground/70">
-                    {city}
-                  </span>
-                </li>
-              ))}
-              <li>
-                <span className="text-xs text-primary-foreground/50">
-                  + {CITIES.length - 6} more
-                </span>
-              </li>
-            </ul>
-          </div>
         </div>
 
         <div className="flex flex-col items-start justify-between gap-4 pt-6 md:flex-row md:items-center">

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Car, LogOut, Menu, User } from "lucide-react";
+import { LogOut, Menu, User } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NotificationBell } from "@/components/shared/notification-bell";
+import { Logo } from "@/components/shared/logo";
 import { apiGet, apiPost, ApiClientError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import type { UserRole } from "@/lib/constants/enums";
@@ -117,8 +118,7 @@ export function Navbar({ initialUser = null }: Props) {
           href="/"
           className="flex items-center gap-2 font-bold tracking-tight text-primary"
         >
-          <Car className="size-7" aria-hidden="true" />
-          <span className="text-h2">ManaDriver</span>
+          <Logo withWordmark wordmarkClassName="text-h2" />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -230,7 +230,7 @@ export function Navbar({ initialUser = null }: Props) {
             </SheetTrigger>
             <SheetContent side="right" className="w-72 gap-0 p-6">
               <SheetTitle className="text-h3 mb-6 text-primary">
-                ManaDriver
+                <Logo withWordmark className="size-10" />
               </SheetTitle>
               <nav className="flex flex-col gap-1">
                 {NAV_LINKS.map((link) => (
