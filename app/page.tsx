@@ -435,7 +435,7 @@ function DriverPartnerBanner() {
           </div>
           <Button
             size="lg"
-            className="h-12 bg-background px-8 text-base text-primary shadow-md hover:bg-muted"
+            className="h-12 bg-background px-8 text-base text-primary shadow-md hover:bg-muted [a]:hover:bg-muted hover:text-primary"
             render={<Link href="/signup" />}
           >
             Join ManaDriver
