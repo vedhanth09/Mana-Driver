@@ -40,14 +40,14 @@ const ROLE_OPTIONS: ReadonlyArray<{
 }> = [
   {
     value: "driver",
-    title: "I want to become a driver",
-    description: "Find driving jobs, set your hours, and get paid.",
+    title: "Join as a Driver",
+    description: "Find jobs, set your schedule, and earn on your terms.",
     Icon: Car,
   },
   {
     value: "customer",
-    title: "I need a driver",
-    description: "Hire a professional, verified driver on demand.",
+    title: "Join as a Customer",
+    description: "Book a verified, professional driver whenever you need one.",
     Icon: User,
   },
 ];
@@ -61,26 +61,26 @@ type PanelContent = {
 
 const PANEL_CONTENT: Record<"driver" | "customer", PanelContent> = {
   driver: {
-    tagline: "Drive your career forward.",
-    heading: "Join our network of premium drivers.",
+    tagline: "Welcome to the community.",
+    heading: "Great to have you on board.",
     description:
-      "Experience flexible hours, guaranteed payouts, and a supportive community designed for professionals.",
+      "Join a growing network of professional drivers. Flexible hours, reliable payouts, and a platform that puts you first.",
     image: "/signup-driver.jpg",
   },
   customer: {
-    tagline: "Travel in comfort and safety.",
-    heading: "Your Car. A Professional Driver. On Demand.",
+    tagline: "Welcome to the community.",
+    heading: "Glad you're here.",
     description:
-      "Experience seamless travel, professional chauffeurs, and premium vehicles at your fingertips.",
+      "Thousands of customers already trust ManaDriver for safe, seamless journeys. You're in good hands.",
     image: "/signup-customer.jpg",
   },
 };
 
 const NEUTRAL_PANEL: PanelContent = {
-  tagline: "Your ride, your way.",
-  heading: "Premium rides and professional drivers, on demand.",
+  tagline: "Join the ManaDriver community.",
+  heading: "One platform. Drivers and riders, together.",
   description:
-    "Create your account in two quick steps and join the Mana Drive community.",
+    "Sign up in two quick steps and become part of a trusted community built on safety, flexibility, and respect.",
   image: "/signup-customer.jpg",
 };
 
@@ -284,13 +284,13 @@ export default function SignupPage() {
             <div className="mb-4">
               <h1 className="text-h1-mobile font-bold text-foreground">
                 {step === "details"
-                  ? "Create an account"
-                  : "What brings you here?"}
+                  ? "Join ManaDriver"
+                  : "How would you like to join?"}
               </h1>
               <p className="mt-1 text-sm text-muted-foreground">
                 {step === "details"
-                  ? "Enter your details to get started."
-                  : "Choose an option to finish creating your account."}
+                  ? "Create your account and become part of the community."
+                  : "Pick your role — you can always do both later."}
               </p>
             </div>
 

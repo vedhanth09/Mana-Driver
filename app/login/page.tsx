@@ -130,11 +130,11 @@ function LoginPageInner() {
 
         <div className="relative z-10 max-w-md">
           <h2 className="text-h1 leading-tight font-bold">
-            Empowering professional drivers.
+            Welcome back to ManaDriver.
           </h2>
           <p className="mt-3 text-base text-primary-foreground/75">
-            Join the fleet that connects reliable professionals with premium
-            opportunities. Seamlessly manage your schedule and earnings.
+            Good to see you again. Thousands of drivers and customers rely on
+            ManaDriver every day — sign in and pick up where you left off.
           </p>
         </div>
       </aside>

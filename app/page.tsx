@@ -45,13 +45,12 @@ function Hero() {
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
         <div className="flex flex-col items-start gap-6">
           <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-primary md:text-5xl lg:text-[56px]">
-            Professional Drivers at Your Fingertips.
+            Join the ManaDriver Community.
           </h1>
           <p className="max-w-xl text-base text-muted-foreground md:text-lg">
-            Experience seamless, reliable, and secure rides across India with
-            ManaDriver. Whether you need a trusted chauffeur across town or a
-            steady driving gig, we&apos;ve got you covered with our
-            functional, utility-first platform.
+            Whether you need a trusted driver or want to earn as one — you
+            belong here. Join thousands of people across India who rely on
+            ManaDriver for seamless, safe, and professional journeys every day.
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <Button
@@ -59,7 +58,7 @@ function Hero() {
               className="h-12 bg-primary px-8 text-base text-primary-foreground hover:bg-primary/90"
               render={<Link href="/signup" />}
             >
-              Book a Driver
+              Join Us
               <ArrowRight className="size-5" aria-hidden="true" />
             </Button>
             <Button
@@ -68,7 +67,7 @@ function Hero() {
               className="h-12 border-border bg-background px-8 text-base text-primary"
               render={<Link href="/signup" />}
             >
-              Become a Driver
+              Learn More
             </Button>
           </div>
         </div>
@@ -165,7 +164,8 @@ function HowItWorks() {
           How It Works
         </h2>
         <p className="mt-3 text-base text-muted-foreground">
-          Simple, straightforward steps for both customers and drivers.
+          Whether you&apos;re booking a ride or joining as a driver, getting
+          started takes just a few simple steps.
         </p>
       </div>
       <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -425,12 +425,12 @@ function DriverPartnerBanner() {
         <div className="relative flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
           <div className="flex-1">
             <h2 className="text-2xl leading-tight font-bold md:text-3xl">
-              Drive with Pride. Earn with Respect.
+              Ready to Join Us?
             </h2>
             <p className="mt-3 max-w-xl text-base text-primary-foreground/75">
-              Join thousands of professional drivers who have upgraded their
-              careers with ManaDriver. Enjoy flexible hours, timely payouts,
-              and a supportive community.
+              Whether you&apos;re looking to earn as a professional driver or
+              hire one on demand — ManaDriver welcomes you. Flexible, trusted,
+              and built for everyone.
             </p>
           </div>
           <Button
@@ -438,7 +438,7 @@ function DriverPartnerBanner() {
             className="h-12 bg-background px-8 text-base text-primary shadow-md hover:bg-muted"
             render={<Link href="/signup" />}
           >
-            Apply to Drive
+            Join ManaDriver
             <UserCheck className="size-5" aria-hidden="true" />
           </Button>
         </div>
