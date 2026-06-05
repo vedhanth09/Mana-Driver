@@ -100,7 +100,7 @@ export function RateDriverModal({
 
         <div className="flex flex-col gap-4">
           {RATING_DIMENSIONS.map((dim) => (
-            <div key={dim} className="flex items-center justify-between gap-3">
+            <div key={dim} className="flex flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
               <Label htmlFor={`rating-${dim}`} className="font-medium">
                 {dimensionLabels[dim]}
               </Label>

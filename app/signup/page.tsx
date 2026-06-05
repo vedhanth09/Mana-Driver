@@ -215,7 +215,7 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="grid h-screen grid-cols-1 overflow-hidden bg-background lg:grid-cols-[1fr_1.1fr]">
+    <main className="grid min-h-screen grid-cols-1 bg-background lg:h-screen lg:grid-cols-[1fr_1.1fr] lg:overflow-hidden">
       {/* Left — brand panel */}
       <aside className="relative hidden overflow-hidden bg-primary text-primary-foreground lg:flex lg:flex-col lg:justify-between lg:p-12">
         <Image
@@ -271,7 +271,7 @@ export default function SignupPage() {
       </aside>
 
       {/* Right — form panel */}
-      <section className="flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-8 lg:px-16">
+      <section className="flex items-center justify-center px-4 py-6 sm:px-8 lg:overflow-y-auto lg:px-16">
         <div className="w-full max-w-xl">
           <Link
             href="/"

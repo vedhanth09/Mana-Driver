@@ -73,7 +73,7 @@ function Hero() {
         </div>
 
         {/* Visual */}
-        <div className="relative h-[420px] overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary-container shadow-xl md:h-[500px] lg:h-[560px]">
+        <div className="relative min-h-[420px] overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary-container shadow-xl md:h-[500px] lg:h-[560px]">
           <div className="absolute -top-24 -right-24 size-72 rounded-full bg-secondary/30 blur-3xl" />
           <div className="absolute -bottom-24 -left-16 size-64 rounded-full bg-secondary/20 blur-3xl" />
           <div className="relative flex h-full flex-col justify-end p-8 md:p-10">

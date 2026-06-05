@@ -318,7 +318,7 @@ function OtpStep({
             maxLength={6}
             aria-invalid={errors.code ? "true" : undefined}
             className={cn(
-              "h-12 w-full rounded-lg border border-border bg-background px-4 text-center font-mono text-2xl tracking-[0.5em] text-foreground placeholder:text-muted-foreground placeholder:tracking-normal",
+              "h-12 w-full rounded-lg border border-border bg-background px-4 text-center font-mono text-xl tracking-[0.3em] text-foreground placeholder:text-muted-foreground placeholder:tracking-normal sm:text-2xl sm:tracking-[0.5em]",
               "outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20",
               "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
             )}

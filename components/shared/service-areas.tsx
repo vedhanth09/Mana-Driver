@@ -167,7 +167,7 @@ export function ServiceAreas() {
           </div>
 
           {/* Map */}
-          <div className="relative min-h-[320px] bg-muted/40 lg:min-h-0">
+          <div className="relative min-h-[240px] bg-muted/40 sm:min-h-[320px] lg:min-h-0">
             <div
               className="absolute inset-0 opacity-[0.18]"
               aria-hidden="true"

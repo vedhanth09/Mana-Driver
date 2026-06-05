@@ -71,7 +71,7 @@ export function ApplicantCard({
         </AvatarFallback>
       </Avatar>
 
-      <div className="flex flex-1 flex-col gap-1.5">
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-base font-semibold text-foreground">{driver.fullName}</h3>
           <Badge variant={statusStyles[status].variant}>{statusStyles[status].label}</Badge>
@@ -128,6 +128,7 @@ export function ApplicantCard({
           size="sm"
           disabled={hiring}
           onClick={() => onHire?.(applicant.applicationId)}
+          className="shrink-0"
         >
           {hiring ? "Hiring…" : "Hire"}
         </Button>

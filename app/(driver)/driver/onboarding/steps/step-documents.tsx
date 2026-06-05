@@ -138,7 +138,7 @@ function DocumentDropzone({
             <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary/15 text-secondary">
               <CheckCircle2 className="size-5" aria-hidden="true" />
             </div>
-            <div className="flex-1 text-left">
+            <div className="min-w-0 flex-1 text-left">
               <p className="text-sm font-medium text-foreground truncate">
                 {file.name}
               </p>
@@ -153,7 +153,7 @@ function DocumentDropzone({
                 onSelect(undefined);
               }}
               aria-label="Remove file"
-              className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-destructive"
+              className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-destructive"
             >
               <X className="size-4" aria-hidden="true" />
             </button>
@@ -163,7 +163,7 @@ function DocumentDropzone({
                 e.stopPropagation();
                 open();
               }}
-              className="text-xs font-medium text-primary hover:underline"
+              className="shrink-0 text-xs font-medium text-primary hover:underline"
             >
               Replace
             </button>

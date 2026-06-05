@@ -332,7 +332,7 @@ export function OnboardingWizard({
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-xs font-semibold text-muted-foreground whitespace-nowrap">
+              <span className="hidden text-xs font-semibold text-muted-foreground whitespace-nowrap sm:inline">
                 {Math.round(progress)}%
               </span>
             </div>
