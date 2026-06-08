@@ -1,0 +1,38 @@
+# ManaDriver
+
+> ManaDriver is an on-demand professional driver marketplace serving India. Customers book trusted, background-verified chauffeurs for their own car — by the hour, temporarily, or permanently — while drivers find flexible work and earn daily. The platform handles the full loop: job posting, driver applications, verification, ratings, and payments.
+
+ManaDriver connects two audiences. **Customers** need a safe, reliable driver for their personal vehicle for daily commutes, night-outs, outstation trips, or eldercare rides. **Drivers** register, complete a 4-step verification (identity, police check, skill assessment, behavioral interview), browse nearby jobs, and earn money. Authenticated dashboards for both roles are private and require sign-in.
+
+## Public pages
+
+- [Home](https://manadriver.com/): Overview of the service — how it works for customers and drivers, the 4-step safety verification, why choose ManaDriver, tailored journey types, and service areas.
+- [Sign up](https://manadriver.com/signup): Create an account as either a customer (book a driver) or a driver (find work).
+- [Log in](https://manadriver.com/login): Sign in to an existing customer or driver account. Supports email/password and Google sign-in.
+- [Forgot password](https://manadriver.com/forgot-password): Request a one-time passcode by email to reset an account password.
+
+## Services
+
+- Hourly rides — book a driver for a few hours, with upfront pricing.
+- Daily commute — reliable drivers for everyday office runs.
+- Night outs — a driver brings your car safely home after an evening out.
+- Outstation trips — experienced highway drivers for weekend getaways and long journeys.
+- Eldercare rides — drivers trained to assist elderly passengers.
+- Temporary and permanent drivers — short-term cover or a regular driver on a recurring schedule.
+
+## How it works
+
+- For customers: select a service, confirm location/car type/duration and see the estimate, then a verified driver is assigned and arrives at the scheduled time.
+- For drivers: register and verify documents, accept jobs that fit your schedule, complete rides professionally, and receive payments to your bank account.
+
+## Trust and safety
+
+- 4-step driver verification: identity check (Aadhaar, PAN, driving license), police verification, practical skill assessment, and a behavioral interview.
+- Transparent, upfront pricing with no hidden fees.
+- 24/7 customer support.
+
+## Optional
+
+- Contact: hello@manadriver.example
+- Coverage: India (English, India). Made for India.
+- Note: Driver and customer dashboards (/driver, /customer) and all API endpoints (/api) are authenticated and not part of the public site.
