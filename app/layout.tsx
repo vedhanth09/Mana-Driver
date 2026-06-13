@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import { NotificationProvider } from "@/contexts/NotificationContext";
 import { Toaster } from "@/components/ui/sonner";
+import { SITE_URL } from "@/lib/constants/site";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -11,9 +12,28 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "ManaDriver",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "ManaDriver — On-Demand Professional Drivers for Your Car",
+    template: "%s | ManaDriver",
+  },
   description:
     "Your Car. A Professional Driver. On Demand. Book a trusted driver in minutes — hourly, temporary, or permanent.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "ManaDriver",
+    url: "/",
+    title: "ManaDriver — On-Demand Professional Drivers for Your Car",
+    description:
+      "Book a trusted, background-verified driver for your own car — by the hour, temporarily, or permanently. Serving cities across India.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ManaDriver — On-Demand Professional Drivers for Your Car",
+    description:
+      "Book a trusted, background-verified driver for your own car — by the hour, temporarily, or permanently.",
+  },
 };
 
 export default function RootLayout({
